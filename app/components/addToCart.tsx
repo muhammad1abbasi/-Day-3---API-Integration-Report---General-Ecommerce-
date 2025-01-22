@@ -2,11 +2,19 @@
 
 import { useCart } from "../context/CartContext";
 
+// Updated Product interface with _id
+interface Product {
+  _id: string;  // Use _id instead of id
+  name: string;
+  price: number;
+  image_url: string;
+  // Add other fields relevant to your product
+}
+
 export default function AddToCart({ 
   product, 
 }: { 
- 
-  product: any 
+  product: Product;  // Using the updated Product type
 }) {
   const { addToCart } = useCart();
 

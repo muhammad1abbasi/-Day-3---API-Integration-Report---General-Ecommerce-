@@ -5,7 +5,6 @@ export async function POST(req: Request) {
   try {
     const { customerName, email, address, totalAmount, cartItems } = await req.json();
     
-    
     await client.create({
       _type: "order",
       customerName,
@@ -17,7 +16,8 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: "Order placed successfully!" }, { status: 201 });
-  } catch (_error) {
+  } catch {
+    // Simply omit _error here
     return NextResponse.json({ error: "Failed to place order" }, { status: 500 });
   }
 }
