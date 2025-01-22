@@ -134,7 +134,7 @@ export default async function UserProfile() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-5">
-              {data.map((val: any, i: number) => (
+              {data.map((val: any) => (
                 <div
                   key={val._id}
                   className="rounded-lg border p-5 flex flex-col items-center space-y-4 shadow-md hover:shadow-lg transition duration-300"

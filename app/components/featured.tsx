@@ -21,7 +21,7 @@ export default async function Featured() {
       <h1 className="text-center font-bold text-3xl mb-8 text-blue-950">Featured Products</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {data.map((val: any, i: number) => (
+        {data.map((val: any) => (
           <div
             key={val._id}
             className="rounded-lg border p-5 flex flex-col items-center space-y-4 shadow-md hover:shadow-lg transition duration-300"
