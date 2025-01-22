@@ -1,10 +1,30 @@
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 
-export default async function UserHistory({ params }: { params: { userhistory: string } }) {
-  console.log("Fetching User History for:", params.userhistory); // ✅ Debugging - Check if params are correct
+// Define types for the fetched data
+type User = {
+  _id: string;
+  name: string;
+  email: string;
+  image_url: string;
+  address: string;
+};
 
-  
+type Product = {
+  _id: string;
+  name: string;
+  price: number;
+  category: string;
+  discountPercentage: number;
+  description: string;
+  isFeaturedProduct: boolean;
+  stockLevel: number;
+  image_url: string;
+};
+
+export default async function UserHistory({ params }: { params: { userhistory: string } }) {
+  console.log("Fetching User History for:", params.userhistory);
+
   const UserHistoryQuery = `*[_type == "user" && _id == $id][0] {
     _id,
     name,
@@ -13,14 +33,12 @@ export default async function UserHistory({ params }: { params: { userhistory: s
     address
   }`;
 
-  const UserDatahist = await client.fetch(UserHistoryQuery, { id: params.userhistory });
+  const UserDatahist: User | null = await client.fetch(UserHistoryQuery, { id: params.userhistory });
 
- 
   if (!UserDatahist) {
     return <h1 className="text-center text-2xl font-bold text-red-500">User Not Found</h1>;
   }
 
-  
   const Query = `*[_type == "product"] [0..4] {
     _id,
     name,
@@ -33,7 +51,7 @@ export default async function UserHistory({ params }: { params: { userhistory: s
     "image_url": image.asset->url
   }`;
 
-  const products = await client.fetch(Query);
+  const products: Product[] = await client.fetch(Query);
 
   return (
     <div className="flex flex-col space-y-5">
@@ -42,7 +60,7 @@ export default async function UserHistory({ params }: { params: { userhistory: s
       <div className="justify-center items-center flex my-20">
         <div className="bg-gray-600 rounded-lg shadow-lg p-4 w-[1020px]">
           <div className="flex flex-col space-y-10 justify-center items-center">
-           
+
             <div className="flex justify-center items-center flex-col space-y-5">
               {UserDatahist.image_url && (
                 <Image
@@ -58,12 +76,11 @@ export default async function UserHistory({ params }: { params: { userhistory: s
               <p className="text-md text-gray-400">{UserDatahist.address || "No address available"}</p>
             </div>
 
-           
             <h2 className="text-3xl font-bold text-white">Purchased Products</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-5">
               {products.length > 0 ? (
-                products.map((val: any) => (
+                products.map((val) => (
                   <div
                     key={val._id}
                     className="rounded-lg border p-5 flex flex-col items-center space-y-4 shadow-md hover:shadow-lg transition duration-300 bg-white"
@@ -90,9 +107,9 @@ export default async function UserHistory({ params }: { params: { userhistory: s
             </div>
           </div>
           <div className="flex flex-col justify-center items-center space-y-5">
-                        <input type="text" placeholder="Share Your Reviews"      className=" py-3 px-10 rounded border    bg-gray-300"/>
-                        <button className="py-3 px-7 rounded-lg bg-gray-700">Submit</button>
-                    </div>
+            <input type="text" placeholder="Share Your Reviews" className="py-3 px-10 rounded border bg-gray-300" />
+            <button className="py-3 px-7 rounded-lg bg-gray-700">Submit</button>
+          </div>
         </div>
       </div>
     </div>

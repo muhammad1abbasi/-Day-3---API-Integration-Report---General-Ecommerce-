@@ -2,7 +2,12 @@
 
 import { useCart } from "../context/CartContext";
 
-export default function AddToCart({ product }: { product: any }) {
+export default function AddToCart({ 
+  product, 
+}: { 
+ 
+  product: any 
+}) {
   const { addToCart } = useCart();
 
   return (

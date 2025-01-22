@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   try {
     const { customerName, email, address, totalAmount, cartItems } = await req.json();
     
-    // Save order to Sanity
+    
     await client.create({
       _type: "order",
       customerName,
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: "Order placed successfully!" }, { status: 201 });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to place order" }, { status: 500 });
   }
 }

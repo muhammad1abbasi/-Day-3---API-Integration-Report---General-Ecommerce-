@@ -2,6 +2,25 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
 
+// Define the type for the product data
+type Product = {
+  _id: string;
+  name: string;
+  price: number;
+  category: string;
+  discountPercentage: number;
+  image_url: string;
+};
+
+// Define the type for user data
+type User = {
+  _id: string;
+  name: string;
+  email: string;
+  image_url: string;
+  address: string;
+};
+
 export default async function UserProfile() {
   const Query = `*[_type == "product"] [0..3]{
     _id,
@@ -12,7 +31,7 @@ export default async function UserProfile() {
     "image_url": image.asset->url
   }`;
 
-  const data = await client.fetch(Query);
+  const data: Product[] = await client.fetch(Query);
 
   const UserQuery = `*[_type == "user"][0] {
     _id,
@@ -22,7 +41,7 @@ export default async function UserProfile() {
     address
   }`;
 
-  const userData = await client.fetch(UserQuery);
+  const userData: User = await client.fetch(UserQuery);
 
   return (
     <div className="container mx-auto p-4 my-10">
@@ -31,10 +50,8 @@ export default async function UserProfile() {
       </h1>
 
       <div className="flex flex-col md:flex-row justify-evenly items-center space-x-0 md:space-x-5 my-10">
-        {/* User Profile Card */}
         <div className="flex justify-center items-center w-full md:w-[400px]">
           <div className="py-10 px-5 border rounded-lg w-full h-auto shadow-lg bg-gray-400 flex flex-col items-center space-y-4">
-            {/* Profile Image */}
             {userData.image_url && (
               <Image
                 src={userData.image_url}
@@ -44,7 +61,7 @@ export default async function UserProfile() {
                 className="rounded-full border-4 border-white"
               />
             )}
-            {/* User Details */}
+
             <h1 className="text-2xl font-bold">{userData.name}</h1>
             <p className="text-lg">{userData.email}</p>
             <p className="text-md text-gray-700 text-center">
@@ -73,7 +90,6 @@ export default async function UserProfile() {
           </div>
         </div>
 
-        {/* Orders & History */}
         <div className="items-center border rounded-lg w-full md:w-[900px] shadow-lg bg-gray-400 p-4">
           <div className="flex justify-between items-center">
             <h1 className="text-lg font-sans">For You Orders</h1>
@@ -134,7 +150,7 @@ export default async function UserProfile() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-5">
-              {data.map((val: any) => (
+              {data.map((val: Product) => (
                 <div
                   key={val._id}
                   className="rounded-lg border p-5 flex flex-col items-center space-y-4 shadow-md hover:shadow-lg transition duration-300"

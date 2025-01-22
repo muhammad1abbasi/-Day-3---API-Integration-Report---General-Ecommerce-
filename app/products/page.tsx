@@ -2,6 +2,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 
+// Define the product type
+type Product = {
+  _id: string;
+  name: string;
+  price: number;
+  category: string;
+  discountPercentage: number;
+  description: string;
+  isFeaturedProduct: boolean;
+  stockLevel: number;
+  image_url: string;
+};
+
 export default async function ProductsListing() {
   const Query = `*[_type == "product"] {
     _id,
@@ -15,7 +28,7 @@ export default async function ProductsListing() {
     "image_url": image.asset->url
   }`;
 
-  const data = await client.fetch(Query);
+  const data: Product[] = await client.fetch(Query);
 
   return (
     <div className="p-10 bg-gray-100 min-h-screen">
@@ -34,7 +47,7 @@ export default async function ProductsListing() {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data.map((val: any) => (
+        {data.map((val) => (
           <Link key={val._id} href={`/products/${val._id}`}>
             <div className="group relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 p-6 flex flex-col items-center space-y-4 border border-gray-200 cursor-pointer">
               <div className="relative w-48 h-48">
