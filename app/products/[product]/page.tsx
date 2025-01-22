@@ -3,14 +3,15 @@ import Image from "next/image";
 import AddToCart from "../../components/addToCart";
 import Link from "next/link";
 
+
 // Define a type for the params that will be passed to the component
-interface ProductDetailsProps {
+interface ProductDetailsPageProps {
   params: {
-    product: string;
+    product: string; // Dynamic route parameter
   };
 }
 
-export default async function ProductDetails({ params }: ProductDetailsProps) {
+export default async function ProductDetails({ params }: ProductDetailsPageProps) {
   const Query = `*[_type == "product" && _id == $id][0] {
     _id,
     name,
@@ -23,10 +24,12 @@ export default async function ProductDetails({ params }: ProductDetailsProps) {
     "image_url": image.asset->url
   }`;
 
+  // Fetch the product data using the dynamic route parameter
   const product = await client.fetch(Query, { id: params.product });
 
+  // Handle the case where the product is not found
   if (!product) {
-    return <h1 className="text-center text-2xl font-bold text-red-500"> Product Not Found</h1>;
+    return <h1 className="text-center text-2xl font-bold text-red-500">Product Not Found</h1>;
   }
 
   return (
@@ -46,9 +49,6 @@ export default async function ProductDetails({ params }: ProductDetailsProps) {
             <p className="leading-relaxed">{product.description}</p>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
-              <div className="flex mb-4">
-                {/* Additional Product Information */}
-              </div>
             </div>
             <AddToCart product={product} />
             <Link href="/checkout">
