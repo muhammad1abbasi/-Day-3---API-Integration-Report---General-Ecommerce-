@@ -39,12 +39,18 @@ const Header = () => {
         </div>
 
         <div className="flex space-x-10">
-        <div className="sm:block mt-2">
+
+        <div className="hidden lg:block mt-2">
+          <Link href="/userprofile">
+            <Image src="/user.png" alt="igm" width={30} height={30} />
+            </Link>
+          </div>
+
+        <div className="hidden lg:block mt-2">
           <Link href="/cart">
             <Image src="/shopping-cart.png" alt="igm" width={30} height={30} />
             </Link>
           </div>
-
           <div className="bg-pink-500 w-auto h-auto px-3 py-2  rounded hidden sm:block ">
             <Image src="/search.svg" alt="igm" width={24} height={24} />
           </div>

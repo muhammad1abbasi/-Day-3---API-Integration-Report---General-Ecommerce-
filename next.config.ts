@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { apiVersion } from "./sanity/env";
 
 const nextConfig: NextConfig = {
   images: {

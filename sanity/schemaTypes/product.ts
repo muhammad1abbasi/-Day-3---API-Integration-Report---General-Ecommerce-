@@ -61,5 +61,11 @@ export default {
         },
         validation: (Rule: any) => Rule.required().error('Category is required'),
       },
+      {
+        name: 'status',
+        type: 'string',
+        title: 'Status',
+      },
+      
     ],
   };

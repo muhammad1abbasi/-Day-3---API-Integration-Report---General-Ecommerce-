@@ -17,7 +17,7 @@ const Shopex = () => {
                 </div>
 
                <div className='flex flex-col justify-center items-center'>
-               <h1 className='text-blue-900 text-[22px]'>24/7 Support</h1>
+               <h1 className='text-blue-900 text-[22px]'>Fast Shipping & Deliver</h1>
                <p className='text-gray-300 text-[16px]'>Lorem ipsum dolor sit amet, <br /> consectetur adipiscing elit. <br /> Massa purus gravida.</p>
                </div>
 
@@ -29,7 +29,7 @@ const Shopex = () => {
                 </div>
 
                <div className='flex flex-col justify-center items-center'>
-               <h1 className='text-blue-900 text-[22px]'>24/7 Support</h1>
+               <h1 className='text-blue-900 text-[22px]'>Savings Budget</h1>
                <p className='text-gray-300 text-[16px]'>Lorem ipsum dolor sit amet, <br /> consectetur adipiscing elit. <br /> Massa purus gravida.</p>
                </div>
 
@@ -41,7 +41,7 @@ const Shopex = () => {
                 </div>
 
                <div className='flex flex-col justify-center items-center'>
-               <h1 className='text-blue-900 text-[22px]'>24/7 Support</h1>
+               <h1 className='text-blue-900 text-[22px]'>Branded Products</h1>
                <p className='text-gray-300 text-[16px]'>Lorem ipsum dolor sit amet, <br /> consectetur adipiscing elit. <br /> Massa purus gravida.</p>
                </div>
 
