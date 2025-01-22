@@ -79,9 +79,10 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = async ({ params }: ProductDetailsProps) => {
+  // Destructure product ID from the URL params
   const { product } = params;
 
-  // Query to fetch product data from Sanity CMS
+  // Sanity query to fetch product data
   const query = `*[_type == "product" && _id == $id][0] {
     _id,
     name,
@@ -94,13 +95,15 @@ const ProductDetails = async ({ params }: ProductDetailsProps) => {
     "image_url": image.asset->url
   }`;
 
-  // Fetch product data from Sanity
+  // Fetch the product data from Sanity
   const productData = await client.fetch(query, { id: product });
 
+  // If product is not found, show an error message
   if (!productData) {
     return <h1 className="text-center text-2xl font-bold text-red-500">Product Not Found</h1>;
   }
 
+  // Render product details if found
   return (
     <section className="text-gray-600 body-font overflow-hidden bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="container px-5 py-24 mx-auto">
